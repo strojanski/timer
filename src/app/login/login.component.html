@@ -1,0 +1,15 @@
+
+
+<div class="login-container">
+  <div class="input-username">
+    <label for="username"><b>Username</b></label>
+    <input [(ngModel)]="placeholder_user.username" type="text" placeholder="Enter Username" name="uname" required>
+  </div>
+
+  <div class="input-password">
+    <label for="password"><b>Password</b></label>
+    <input [(ngModel)]="placeholder_user.password" type="password" placeholder="Enter Password" name="psw" required>
+  </div>
+  <button type="submit" (click)="login()">Login</button>
+</div>
+
