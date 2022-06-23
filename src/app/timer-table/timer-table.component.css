@@ -1,3 +1,9 @@
 .timer-table-container {
     margin: auto;
 }
+
+.timer-table {
+    margin: auto;
+    align-items: center;
+    width: 100%;
+}

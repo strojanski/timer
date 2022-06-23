@@ -8,7 +8,6 @@ export class TimerService {
 
   public time: number = 0;
   now: Date = new Date();
-  interval: any;
 
   constructor() { }
   

@@ -1,14 +1,4 @@
-.logout-btn {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin-right: 2em;
-    margin-bottom: 2em;
-    width: 6em;
-    height: 2em;
+.grid {
+    vertical-align: center;
+    margin-top: 15rem;
 }
-
-button:hover {
-    opacity: 0.8;
-  }
-  

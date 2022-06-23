@@ -1,17 +1,22 @@
 <div class="timer-table-container">
   <h1>Timer Table</h1>
 
-  <table>
+  <table class="timer-table">
     <ng-container *ngFor="let page of convertedTimes">
       <tr>
         <td>       
           <label>{{ page.page }}:</label>
         </td>
-        <td>
+        <td style="padding-left: 2em">
           <label>{{ page.time }}s</label>
         </td>
       </tr>
     </ng-container>
+    <tr>
+      <td [colSpan]="2">
+        <label>Total time: <label style="align-self: right; text-align: right; padding-left: 2.35em">{{ totalTime }}s</label></label>
+      </td>
+    </tr>
   </table>
 
 </div>

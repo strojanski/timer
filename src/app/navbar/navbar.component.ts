@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
     let from = this.location.path();
     console.log(from);
     console.log(to);
-   
+
     // push epoch time to curUser.times
     let time_now = this.timer.getTime();
     
@@ -35,7 +35,12 @@ export class NavbarComponent implements OnInit {
 
     // dont time when logged out
     
-    this.userService.curUser.times.push({time: time_now, page: from});
+    if (to.toLowerCase().includes("logout")) {
+      this.userService.curUser.times.push({time: time_now, page: from, stop: true});
+    } else {
+      this.userService.curUser.times.push({time: time_now, page: from, stop: false});
+    }
+   
     console.log(this.userService.curUser.id + " " + this.userService.curUser.username);
     console.log(this.userService.curUser.times);
 

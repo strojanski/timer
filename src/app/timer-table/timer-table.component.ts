@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
 import { Timestamp } from "../timestamp";
+import { TimerService } from '../timer.service';
 
 @Component({
   selector: 'app-timer-table',
@@ -12,38 +13,49 @@ export class TimerTableComponent implements OnInit {
   times: Timestamp[] = [];
 
   public convertedTimes: Timestamp[] = [
-    {time: 0, page: "Home"},
-    {time: 0, page: "About"},
-    {time: 0, page: "Profile"}
+    {time: 0, page: "Home", stop: false},
+    {time: 0, page: "About", stop: false},
+    {time: 0, page: "Profile", stop: false}
   ];
 
-  constructor(public usersService: UsersService) { 
+  totalTime: number = 0;
+
+  constructor(public usersService: UsersService, private timer: TimerService) { 
     this.times = usersService.curUser.times;
     console.log(this.times);
+    let next = false; // next is used to determine if the next time is between logout and login
 
     for (let i = 1; i < this.times.length; i++) {
       let input = this.times[i];
-      let output = (input.time - this.times[i-1].time) / 1000;
+      let output = Math.ceil((input.time - this.times[i-1].time) / 1000);
+      
+      // skip logout time
+      if (input.stop) {
+        next = true
+        continue;
+      }
+
+      if (next) {
+        next = false;
+        continue;
+      }
+
       if (input.page.toLowerCase().includes("home"))
         this.convertedTimes[0].time += output;
-      else if (input.page.toLowerCase().includes("about"))
+        else if (input.page.toLowerCase().includes("about"))
         this.convertedTimes[1].time += output;
-      else if (input.page.toLowerCase().includes("profile"))
+        else if (input.page.toLowerCase().includes("profile"))
         this.convertedTimes[2].time += output;
+
+      this.totalTime += output;
     }
     console.log(this.convertedTimes);
+
+    // this.totalTime = Math.ceil((timer.getTime() - this.times[0].time)/1000);  
   }
   
   ngOnInit(): void {
-
+    
   }
-
-
-  //let actualTime = 0;
-    //actualTime = time_now - this.userService.curUser.times[this.userService.curUser.times.length - 1].time;
-    //console.log(time_now , " - ", this.userService.curUser.times[this.userService.curUser.times.length - 1].time, " = ", actualTime); 
-    //console.log("actual time spent on ", from, " is ", actualTime/1000, " seconds");
-
-    // cumulative = now - first timestamp
 
 }
