@@ -1,0 +1,17 @@
+<div class="timer-table-container">
+  <h1>Timer Table</h1>
+
+  <table>
+    <ng-container *ngFor="let page of convertedTimes">
+      <tr>
+        <td>       
+          <label>{{ page.page }}:</label>
+        </td>
+        <td>
+          <label>{{ page.time }}s</label>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+
+</div>

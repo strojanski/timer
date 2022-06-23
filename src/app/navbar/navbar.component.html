@@ -1,7 +1,7 @@
 
 <nav class="topnav">
-    <a routerLink="/home/{{cur.id}}">Home </a>
-    <a routerLink="/about/{{cur.id}}">About</a>
-    <a routerLink="/profile/{{cur.id}}">My Profile</a>
-    <a style="background-color: lightgray;" routerLink="/login">Logout</a>
+    <a (click)="changeLoc('home')" routerLink="/home/{{cur.id}}">Home </a>
+    <a (click)="changeLoc('profile')" routerLink="/profile/{{cur.id}}">My Profile</a>
+    <a (click)="changeLoc('about')" routerLink="/about/{{cur.id}}">About</a>
+    <a (click)="changeLoc('logout')" style="background-color: lightgray;" routerLink="/login">Logout</a>
 </nav>

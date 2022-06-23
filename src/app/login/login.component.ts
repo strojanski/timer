@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Timestamp } from 'rxjs';
 import { User } from '../user';
 import { UsersService } from '../users.service';  
+import { TimerService } from '../timer.service';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +12,10 @@ import { UsersService } from '../users.service';
 
 export class LoginComponent implements OnInit {
 
-  now = new Date();
-  placeholder_user: User = {id: this.userService.users.length * 100 + 45, username: '', password: '', times: [{time: this.now.getTime(), page: "home"}]};
+  placeholder_user: User = {id: this.userService.users.length * 100 + 45, username: '', password: '', times: []};
 
-  constructor(private router: Router, public userService: UsersService) {
-    setInterval(() => {
-      this.now = new Date();
-    }, 1000);
+  constructor(private router: Router, public userService: UsersService, private timer: TimerService) { 
+    this.placeholder_user.times.push({time: timer.getTime(), page: "home"});
   }
 
   ngOnInit(): void {
@@ -34,8 +31,10 @@ export class LoginComponent implements OnInit {
       if (curUser)
         this.userService.curUser = curUser;
       console.log("Hello old user"); 
+      console.log(this.userService.curUser.times);
     }
-      
+
+    this.userService.curUser.times.push({time: this.timer.getTime(), page: "home"}); 
     console.log(this.userService.users);
     console.log(this.userService.curUser);
     this.router.navigateByUrl('/home/' + this.placeholder_user.id);

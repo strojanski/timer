@@ -7,14 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  now = new Date();
 
   constructor() { 
-    setInterval(() => {
-    this.now = new Date();
-  }, 1000);
-  console.log(this.now.getTime());}
-   
+  }   
 
 
   ngOnInit(): void {

@@ -1,7 +1,27 @@
 <app-navbar></app-navbar>
 
 <div class="profile-info">
-    <h1>{{ cur.username | uppercase }}</h1>
-    <p>Content</p>
-    <p>{{ cur.username }}</p>
+   
+    <img src="../../assets/profile.png" width="70px" height="70px">
+    <table class="user-info" >
+        <th>
+            <h2>User info: </h2>
+        </th>
+        <tr>
+            <td>
+                <label class="uname">Username: {{ cur.username }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-top: 20px">
+
+                <p>Change password:  <input id="passwd" [(ngModel)]="this.userService.curUser.password" style="width: 30% "></p>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="times">
+    <app-timer-table></app-timer-table>
 </div>
