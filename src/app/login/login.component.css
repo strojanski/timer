@@ -15,8 +15,7 @@ button {
   border: none;
   cursor: pointer;
   align-self: center;
-  margin-left: 20px;
-  width: 97%;
+  width: 100%;
 }
 
 button:hover {

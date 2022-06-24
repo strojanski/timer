@@ -24,10 +24,10 @@ export class TimerTableComponent implements OnInit {
     this.times = usersService.curUser.times;
     let next = false; // next is used to determine if the next time is between logout and login
 
+    let n = 0;
     for (let i = 1; i < this.times.length; i++) {
       let input = this.times[i];
       let output = Math.ceil((input.time - this.times[i-1].time) / 1000);
-      
       // skip logout time
       if (input.stop) {
         next = true
@@ -35,7 +35,11 @@ export class TimerTableComponent implements OnInit {
       }
 
       if (next) {
-        next = false;
+        n = 1;
+        if (n == 1) {
+          next = false;
+          n = 0;
+        }
         continue;
       }
 
