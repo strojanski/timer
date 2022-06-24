@@ -32,15 +32,15 @@ export class LoginComponent implements OnInit {
 
     // check if user exists
     this.user = this.cookie.getCookie(this.placeholder_user.username);
-    console.log(this.placeholder_user.username);
-    console.log("Logged in: ", this.user);
+    //console.log(this.placeholder_user.username);
+    //console.log("Logged in: ", this.user);
     if (this.user) {
-      console.log(this.user);
+      //console.log(this.user);
       let old_user = JSON.parse(this.user);
       this.userService.curUser = old_user;
       console.log("Hello old user");
     } else {
-      
+
       this.cookie.setCookie({
         name: this.placeholder_user.username,
         value: this.placeholder_user,
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       this.userService.curUser = this.placeholder_user;
     }
 
-    console.log("User time spent: ", this.userService.curUser.times);
+    //console.log("User time spent: ", this.userService.curUser.times);
 
     this.userService.curUser.times.push({time: this.timer.getTime(), page: "home", stop: false});
     this.userService.users.push(this.userService.curUser);

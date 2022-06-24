@@ -35,24 +35,23 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl('/login');
     } else {
       actualTime = time_now - this.userService.curUser.times[this.userService.curUser.times.length - 1].time;
-      console.log(time_now , " - ", this.userService.curUser.times[this.userService.curUser.times.length - 1].time, " = ", actualTime); 
+      //console.log(time_now , " - ", this.userService.curUser.times[this.userService.curUser.times.length - 1].time, " = ", actualTime); 
       console.log("actual time spent on ", from, " is ", actualTime/1000, " seconds");
 
       // save new times to cookie
+      if (to.toLowerCase().includes("logout")) {
+        this.userService.curUser.times.push({time: time_now, page: from, stop: true});
+      } else {
+        this.userService.curUser.times.push({time: time_now, page: from, stop: false});
+      }
+    
       this.cookie.setCookie({
         name: this.userService.curUser.username,
         value: this.userService.curUser,
         expires: 1});
       
-      if (to.toLowerCase().includes("logout")) {
-        this.userService.curUser.times.push({time: time_now, page: from, stop: true});
-        this.userService.curUser = {id: 0, username: '', password: '', times: []};
-      } else {
-        this.userService.curUser.times.push({time: time_now, page: from, stop: false});
-      }
-    
-      console.log(this.userService.curUser.id + " " + this.userService.curUser.username);
-      console.log(this.userService.curUser.times);
+      //console.log(this.userService.curUser.id + " " + this.userService.curUser.username);
+      //console.log(this.userService.curUser.times);
     }
   }
 }
