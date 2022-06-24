@@ -22,7 +22,6 @@ export class TimerTableComponent implements OnInit {
 
   constructor(public usersService: UsersService, private timer: TimerService) { 
     this.times = usersService.curUser.times;
-    console.log(this.times);
     let next = false; // next is used to determine if the next time is between logout and login
 
     for (let i = 1; i < this.times.length; i++) {

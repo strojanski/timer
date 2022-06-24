@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookieService } from './cookie.service';
 import { User } from './user';
 
 @Component({
@@ -11,4 +12,6 @@ export class AppComponent {
 
 
   title = 'timer';
+
+  
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CookieService } from '../cookie.service';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userService: UsersService) { }
 
   ngOnInit(): void {
   }

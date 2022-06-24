@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { TimerService } from '../timer.service';
+import { Router } from "@angular/router";
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +17,7 @@ export class NavbarComponent implements OnInit {
   cur = this.userService.curUser;
   nameEx = "(?<=/).*(?=/)";
 
-  constructor(private userService: UsersService, private location: Location, private timer: TimerService) { }
+  constructor(private userService: UsersService, private location: Location, private timer: TimerService, private router : Router, public cookie : CookieService) { }
 
   ngOnInit(): void {
   }
@@ -29,21 +31,28 @@ export class NavbarComponent implements OnInit {
     let time_now = this.timer.getTime();
     
     let actualTime = 0;
-    actualTime = time_now - this.userService.curUser.times[this.userService.curUser.times.length - 1].time;
-    console.log(time_now , " - ", this.userService.curUser.times[this.userService.curUser.times.length - 1].time, " = ", actualTime); 
-    console.log("actual time spent on ", from, " is ", actualTime/1000, " seconds");
-
-    // dont time when logged out
-    
-    if (to.toLowerCase().includes("logout")) {
-      this.userService.curUser.times.push({time: time_now, page: from, stop: true});
+    if (this.userService.curUser.times.length == 0) {
+      this.router.navigateByUrl('/login');
     } else {
-      this.userService.curUser.times.push({time: time_now, page: from, stop: false});
+      actualTime = time_now - this.userService.curUser.times[this.userService.curUser.times.length - 1].time;
+      console.log(time_now , " - ", this.userService.curUser.times[this.userService.curUser.times.length - 1].time, " = ", actualTime); 
+      console.log("actual time spent on ", from, " is ", actualTime/1000, " seconds");
+
+      // save new times to cookie
+      this.cookie.setCookie({
+        name: this.userService.curUser.username,
+        value: this.userService.curUser,
+        expires: 1});
+      
+      if (to.toLowerCase().includes("logout")) {
+        this.userService.curUser.times.push({time: time_now, page: from, stop: true});
+        this.userService.curUser = {id: 0, username: '', password: '', times: []};
+      } else {
+        this.userService.curUser.times.push({time: time_now, page: from, stop: false});
+      }
+    
+      console.log(this.userService.curUser.id + " " + this.userService.curUser.username);
+      console.log(this.userService.curUser.times);
     }
-   
-    console.log(this.userService.curUser.id + " " + this.userService.curUser.username);
-    console.log(this.userService.curUser.times);
-
   }
-
 }
